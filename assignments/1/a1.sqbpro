@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/bhavik/Dropbox/edu/dns/data/assignments/1/a1.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="2022"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">-- q1. i. Create a Table EMPLOYEE to store employee details as shown below.
+-- q1. ii. a Assign one column of your choice as the primary key.
+DROP TABLE IF EXISTS Employee;
+
+CREATE TABLE Employee(
+	empno INT NOT NULL,
+	ename VARCHAR(64) NOT NULL,
+	job VARCHAR(64)	NOT NULL,
+	mgr	INT,
+	hiredate DATE NOT NULL,
+	sal NUMERIC	NOT NULL,
+	comm NUMERIC,
+	deptno INT NOT NULL,
+	CONSTRAINT PK_Employee PRIMARY KEY(empno)
+);
+
+-- q1. i. 
+INSERT INTO Employee (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES 
+(8369, &quot;Smith&quot;, &quot;Clerk&quot;, 8902, &quot;1990-12-18&quot;, 800.00, NULL, 20),
+(8499, &quot;Anya&quot;, &quot;Salesman&quot;, 8698, &quot;1991-02-20&quot;, 1600.00, 300.00, 30),
+(8521, &quot;Seth&quot;, &quot;Salesman&quot;, 8698, &quot;1991-02-22&quot;, 1250.00, 500.00, 30),
+(8566, &quot;Mahadevan&quot;, &quot;Manager&quot;, 8839, &quot;1991-04-02&quot;, 2985.00, NULL, 20),
+(8654, &quot;Momin&quot;, &quot;Salesman&quot;, 8698, &quot;1991-09-28&quot;, 1250.00, 1400.00, 30),
+(8698, &quot;Bina&quot;, &quot;Manager&quot;, 8839, &quot;1991-05-01&quot;, 2850.00, NULL, 30),
+(8882, &quot;Shivansh&quot;, &quot;Manager&quot;, 8839, &quot;1991-06-09&quot;, 2450.00, NULL, 10),
+(8888, &quot;Scott&quot;, &quot;Analyst&quot;, 8566, &quot;1992-12-09&quot;, 3000.00, NULL, 20),
+(8839, &quot;Amir&quot;, &quot;President&quot;, NULL, &quot;1991-11-18&quot;, 5000.00, NULL, 10),
+(8844, &quot;Kuldeep&quot;, &quot;Salesman&quot;, 8698, &quot;1991-09-08&quot;, 1500.00, 0.00, 30);
+
+-- q1.ii.b. Display the EMPLOYEE table structure. 
+PRAGMA TABLE_INFO(Employee);
+
+-- q1. ii. Display all the records the from EMPLOYEE table.
+SELECT * FROM Employee;
+
+-- q1. ii. d. To display ename and sal of employees whose salaries are greater than or equal to 2200.
+SELECT ename, sal
+FROM Employee
+WHERE sal &gt;= 2200;
+
+-- q1. ii. e. To display all details of employees who are not getting commission.
+SELECT * 
+FROM Employee
+WHERE comm IS NULL OR comm = 0;
+
+-- q1. ii. f. To display employee name and salary of those employees who don’t have their salary in range of 2500 to 4000
+SELECT ename, sal 
+FROM Employee
+WHERE sal NOT BETWEEN 2500 AND 4000;
+
+-- q1. ii. g. To display the name, job title and salary of employees who don’t have a manager
+SELECT ename, job, sal 
+FROM Employee
+WHERE mgr IS NULL;
+
+-- q1. ii. h. To display the name of employee whose name contains “A” as third alphabet
+SELECT ename 
+FROM Employee
+WHERE ename LIKE &quot;__a%&quot;;
+
+SELECT ename 
+FROM Employee
+WHERE ename REGEXP &quot;^..[Aa].*&quot;;
+
+-- q1. ii. i. To display the name of employee whose name contains “T” as last alphabet
+SELECT ename
+FROM Employee
+WHERE ename REGEXP &quot;[Tt]$&quot;;
+
+SELECT ename
+FROM Employee
+WHERE ename LIKE &quot;%t&quot;;
+
+-- q1. ii. j. To display the name of employee whose name contains” M” as First and “L” as third alphabet
+SELECT ename
+FROM Employee
+WHERE ename LIKE &quot;m_l%&quot;;
+
+SELECT ename
+FROM Employee
+WHERE ename REGEXP &quot;^[Mm].[Ll].*&quot;;
+
+-- q1. ii. k. There has been an error, input the correct salary for Scott to 5000.
+UPDATE Employee
+SET sal = 5000.00
+WHERE ename = &quot;Scott&quot;;
+
+SELECT ename, sal FROM Employee WHERE ename = &quot;Scott&quot;;
+
+-- q1. ii. l. Display only the types of job. List them only once (1)
+SELECT DISTINCT job FROM Employee;
+
+-- q2. i.
+-- Student 
+DROP TABLE IF EXISTS Student;
+
+CREATE TABLE Student (
+	StdID INT NOT NULL,
+	Fname VARCHAR(64) NOT NULL,
+	Lname VARCHAR(64),
+	Credits INT NOT NULL,
+	Dept VARCHAR(32) NOT NULL,
+	Gender VARCHAR(1) NOT NULL,
+	CONSTRAINT PK_Student PRIMARY KEY(StdID)
+);
+
+INSERT INTO Student (StdID, Fname, Lname, Credits, Dept, Gender) VALUES
+(100, &quot;Mary&quot;, &quot;Cooper&quot;, 6000, &quot;Drama&quot;, &quot;F&quot;),
+(101, &quot;Mike&quot;, &quot;Carpen&quot;, 5000, &quot;Maths&quot;, &quot;M&quot;),
+(102, &quot;Ryan&quot;, &quot;Smith&quot;, 10000, &quot;Drama&quot;, &quot;M&quot;),
+(103, &quot;Tom&quot;, &quot;Randall&quot;, 4800, &quot;Maths&quot;, &quot;M&quot;),
+(104, &quot;Ashley&quot;, &quot;Brown&quot;, 5000, &quot;Science&quot;, &quot;F&quot;);
+
+SELECT * FROM Student;
+
+-- Project
+DROP TABLE IF EXISTS Project;
+
+CREATE TABLE Project (
+	ProjectID INT NOT NULL,
+	ProjectName VARCHAR(64),
+	StdID INT,
+	CONSTRAINT PK_Project PRIMARY KEY(ProjectID)
+);
+
+INSERT INTO Project (ProjectID, StdID, ProjectName) VALUES
+(1, 100, &quot;Shakespeare&quot;),
+(2, 100, &quot;Greek Tragedy&quot;),
+(3, 100, &quot;Disaster&quot;),
+(4, 101, &quot;Trigonometry&quot;),
+(5, 102, &quot;Wizard of Oz&quot;),
+(6, 102,&quot;Creative Dramatics&quot;),
+(7, 102, &quot;Modern Art&quot;),
+(8, 106, &quot;Natural Language Processing&quot;),
+(9, 104, &quot;Gravity&quot;);
+
+SELECT * FROM Project;
+
+-- q2. ii.
+-- a. Get name, project name order by firstname from &quot;student&quot; and &quot;project&quot; for all students who have project assigned to them.
+SELECT Student.Fname, Student.Lname, Project.ProjectName
+FROM Student JOIN Project
+ON Student.StdID = Project.StdID
+ORDER BY Student.Fname, Project.ProjectName;
+
+-- b. Get name, project name order by lastname from &quot;student&quot; and &quot;project&quot; for all students who do not have a project assigned to them.
+SELECT Student.Fname, Student.Lname, Project.ProjectName 
+FROM Student LEFT JOIN Project
+ON Student.StdID = Project.StdID
+WHERE ProjectName IS NULL
+ORDER BY Student.Lname;
+
+-- c. Get all project name even if they do not have any matching stdid, order by firstname.
+SELECT Project.ProjectName
+FROM Project LEFT JOIN Student
+ON Student.StdID = Project.StdID
+ORDER BY Student.Fname;
+
+-- d. Get complete records from both tables
+SELECT Student.Fname, Student.Lname, Student.Credits, Student.Dept, Student.Gender, Project.ProjectName
+FROM Project LEFT JOIN Student
+ON Student.StdID = Project.StdID
+UNION
+SELECT Student.Fname, Student.Lname, Student.Credits, Student.Dept, Student.Gender, Project.ProjectName
+FROM Student LEFT JOIN Project
+ON Student.StdID = Project.StdID
+;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
