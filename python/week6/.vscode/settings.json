@@ -1,0 +1,16 @@
+{
+    "editor.fontFamily": "Monaco, Consolas, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "python.formatting.provider": "black",
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.tabStopWidth": 4,
+    "editor.formatOnSave": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "python.globalModuleInstallation": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "~/.config/mypy.ini",
+    "python.analysis.typeCheckingMode": "off",
+}

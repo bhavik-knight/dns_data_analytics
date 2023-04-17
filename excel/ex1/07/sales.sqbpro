@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/bhavik/Dropbox/edu/dns/data/1/ex1/07/sales.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="4088"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">DROP TABLE Customers;
+DROP TABLE Products;
+DROP TABLE Employees;
+DROP TABLE Sales;
+
+CREATE TABLE Customers (
+	CustomerID INTEGER NOT NULL,
+	CustomerName VARCHAR(64) NOT NULL,
+	Industry VARCHAR(128),
+	Sector VARCHAR(64),
+	IPODate DATETIME,
+	CONSTRAINT PK_Customers PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE Products (
+	ProductID INTEGER NOT NULL,
+	ProductName VARCHAR(64) NOT NULL,
+	ProductType VARCHAR(32),
+	ProductCategory VARCHAR(32),
+	ProductPrice NUMERIC NOT NULL,
+	CONSTRAINT PK_Products PRIMARY KEY (ProductID)
+);
+
+CREATE TABLE Employees (
+	EmployeeID INTEGER NOT NULL,
+	EmployeeName VARCHAR(64) NOT NULL,
+	EmployeeStartDate datetime,
+	EmployeeSalary NUMERIC NOT NULL,
+	CONSTRAINT PK_Employee PRIMARY KEY (EmployeeID)
+);
+
+CREATE TABLE Sales (
+	OrderID	INT NOT NULL,
+	OrderAmount NUMERIC NOT NULL,
+	OrderDate datetime,
+	EstCompletion datetime,
+	ProductID INT NOT NULL,
+	CustomerID INT NOT NULL,
+	EmployeeID INT NOT NULL,
+	CONSTRAINT PK_Sales PRIMARY KEY(OrderID),
+	CONSTRAINT FK_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+	CONSTRAINT FK_Customers FOREIGN KEY (ProductID) REFERENCES Customers(CustomerID),
+	CONSTRAINT FK_Employees FOREIGN KEY (ProductID) REFERENCES Employees(EmployeeID)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
